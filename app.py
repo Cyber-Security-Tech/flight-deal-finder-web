@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flight_search import FlightSearch
 from flight_data import FlightData
+from search_log import initialize_db, log_search
 import os
 from dotenv import load_dotenv
 
@@ -9,8 +10,11 @@ load_dotenv()
 app = Flask(__name__)
 flight_search = FlightSearch()
 
-# 🔧 Toggle demo mode ON to use mock data without API keys
+# 🔧 Toggle this to enable or disable demo mode
 DEMO_MODE = True
+
+# 🔧 Initialize the database once at startup
+initialize_db()
 
 @app.route('/', methods=["GET", "POST"])
 def home():
@@ -18,6 +22,9 @@ def home():
         origin = request.form.get("origin")
         destination = request.form.get("destination")
         max_price = float(request.form.get("max_price"))
+
+        # ✅ Log the search to SQLite
+        log_search(origin, destination, max_price)
 
         if DEMO_MODE:
             print("🎓 DEMO MODE ACTIVE – using mock flight data")
