@@ -27,3 +27,8 @@ def log_search(origin, destination, max_price):
             VALUES (?, ?, ?, ?)
         ''', (origin, destination, max_price, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         conn.commit()
+def get_all_searches():
+    with sqlite3.connect(DB_NAME) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT origin, destination, max_price, date_searched FROM searches ORDER BY id DESC")
+        return cursor.fetchall()
