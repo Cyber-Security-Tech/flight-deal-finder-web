@@ -11,6 +11,7 @@ A full-stack Flask web application that allows users to search for round-trip fl
 - ✅ Demo mode fallback (no API key needed)
 - ✅ Logs user searches to a local SQLite database
 - ✅ `/history` page to view all previous searches
+- ✅ Email alerts when a real flight deal is found
 - ✅ Clean and centered UI with custom styling
 - ✅ `.env` and `.gitignore` best practices
 - ✅ Push-ready for GitHub with clear commits and structure
@@ -21,15 +22,16 @@ A full-stack Flask web application that allows users to search for round-trip fl
 
 This project began as a simple Python script that pulled flight data using the Amadeus API and printed results to the console. Here’s how I transformed it into a full web application:
 
-| Feature | Original Script | Web App Upgrade |
-|--------|------------------|-----------------|
-| Input | Hardcoded | Web form with user input |
-| Output | Printed to console | Beautifully styled results in browser |
-| Storage | None | SQLite database logs all searches |
-| Navigation | None | `/` for search, `/history` for search logs |
-| Access | Local CLI only | Browser-accessible, deployable |
-| Demo Mode | No | ✅ Yes — no keys needed |
-| Styling | None | Custom CSS with layout polish |
+| Feature       | Original Script         | Web App Upgrade                             |
+|---------------|--------------------------|---------------------------------------------|
+| Input         | Hardcoded                | Web form with user input                    |
+| Output        | Printed to console       | Beautifully styled results in browser       |
+| Storage       | None                     | SQLite database logs all searches           |
+| Navigation    | None                     | `/` for search, `/history` for search logs  |
+| Access        | Local CLI only           | Browser-accessible, deployable              |
+| Demo Mode     | No                       | ✅ Yes — no keys needed                      |
+| Email Alerts  | No                       | ✅ Sends email when deal is found           |
+| Styling       | None                     | Custom CSS with layout polish               |
 
 ---
 
@@ -42,6 +44,7 @@ flight-deal-finder-web/
 ├── flight_search.py            # Logic for Amadeus API calls
 ├── flight_data.py              # FlightData model
 ├── search_log.py               # SQLite DB logic (init, log, fetch)
+├── notification_manager.py     # Sends email alerts for real deals
 │
 ├── templates/
 │   ├── index.html              # Homepage with search form
@@ -88,9 +91,11 @@ Use `.env.example` to create your `.env` file:
 ```env
 AMADEUS_CLIENT_ID=your_key_here
 AMADEUS_CLIENT_SECRET=your_secret_here
+MY_EMAIL=your_email@gmail.com
+MY_EMAIL_PASSWORD=your_gmail_app_password
 ```
 
-Set `DEMO_MODE = True` in `app.py` to test without an API key.
+Set `DEMO_MODE = True` in `app.py` to test without an API key or email alerts.
 
 ### 5. Run the App
 
@@ -134,11 +139,24 @@ The table is centered, styled, and updated with every new submission.
 
 ---
 
+## 📧 Email Alerts
+
+If `DEMO_MODE = False` and a real flight deal is found, an email will automatically be sent with flight details including:
+
+- Origin and destination
+- Price
+- Departure and return dates
+
+This is powered by Gmail SMTP and app passwords via the `.env` file.
+
+---
+
 ## 🧠 What I Learned
 
 - Flask routing, templates, and server-side rendering
 - How to persist data with SQLite and `sqlite3`
 - Real-world API usage and fallback design patterns
+- Sending emails via SMTP in Flask
 - Clean architecture, file structure, and GitHub commits
 - Frontend/backend coordination + UI/UX polish
 
@@ -152,15 +170,12 @@ The table is centered, styled, and updated with every new submission.
 - Amadeus Flight API
 - HTML/CSS (Jinja templates)
 - `dotenv` for secret management
+- `smtplib` for email automation
 
 ---
 
 ## 💬 Next Steps (Optional)
 
-- Email alert system
 - Scheduled background job (daily check)
 - Deployment to Render
 - User authentication for saved alerts
-
----
-
