@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from flight_search import FlightSearch
 from flight_data import FlightData
 from search_log import initialize_db, log_search, get_all_searches
+from notification_manager import NotificationManager
 import os
 from dotenv import load_dotenv
 
@@ -9,6 +10,7 @@ load_dotenv()
 
 app = Flask(__name__)
 flight_search = FlightSearch()
+notifier = NotificationManager()
 
 # 🔧 Toggle this to enable or disable demo mode
 DEMO_MODE = True
@@ -40,6 +42,11 @@ def home():
             return render_template("results.html", flight=mock_flight)
         else:
             flight = flight_search.search_flights(origin, destination, max_price)
+
+            # ✅ Only email if a deal is found
+            if flight:
+                notifier.send_email(flight)
+
             return render_template("results.html", flight=flight)
 
     return render_template("index.html")
