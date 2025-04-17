@@ -6,17 +6,19 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Flask instance folder (contains local DB, configs)
-instance/
+# SQLite database files (ignored globally, except the one we want)
+*.db
+!instance/searches.db
 
-# VS Code settings (optional)
+# Flask instance folder (ignored unless explicitly allowed)
+!instance/
+!instance/**
+
+# VS Code settings
 .vscode/
 
-# Mac system files
+# macOS system files
 .DS_Store
 
-# SQLite DB file (if generated outside instance/)
-*.db
-
-# Logs (optional)
+# Log files
 *.log
