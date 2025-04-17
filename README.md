@@ -41,13 +41,19 @@ No sign-in required — just search for flights, view results, and browse the se
 
 ---
 
-## 🖼️ Screenshots
+## 📸 Screenshots
 
+### 🔍 Flight Search Form  
+<img src="media/search_form.png" alt="Search Form Screenshot" width="600">
 
-- **Search Form:** `media/screenshots/search_form.png`
-- **Flight Result Page:** `media/screenshots/results.PNG`
-- **Search History Table:** `media/screenshots/history.PNG`
-- **Email Alert Example:** `media/screenshots/email_alert.PNG`
+### ✅ Flight Search Result  
+<img src="media/results.png" alt="Flight Result Screenshot" width="600">
+
+### 📜 Search History  
+<img src="media/history.png" alt="Search History Screenshot" width="600">
+
+### 📧 Email Alert  
+<img src="media/email_alert.png" alt="Email Alert Screenshot" width="600">
 
 ---
 
