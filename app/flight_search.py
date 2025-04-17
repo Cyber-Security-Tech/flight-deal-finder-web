@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from amadeus import Client, ResponseError
 
-from flight_data import FlightData
+from .flight_data import FlightData
 
 load_dotenv()
 
