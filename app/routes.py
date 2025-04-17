@@ -12,7 +12,7 @@ from .notification_manager import NotificationManager
 main = Blueprint("main", __name__)
 
 # Toggle demo mode: Set to True to use static/mock flight data for testing
-DEMO_MODE = False
+DEMO_MODE = True
 
 # Initialize helper components
 flight_search = FlightSearch()

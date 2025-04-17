@@ -1,37 +1,53 @@
 # ✈️ Flight Deal Finder Web App
 
-A full-stack Flask web application that allows users to search for round-trip flight deals and logs each search to a persistent SQLite database. Built as a major upgrade to the original Python-based script version by transforming it into a professional, interactive web app.
+A full-stack Flask web application that allows users to search for round-trip flight deals and logs each search to a persistent SQLite database. This project is a complete transformation of my original CLI-based [Flight Deal Finder](https://github.com/Cyber-Security-Tech/flight-deal-finder) into a modern, interactive web experience.
 
 ---
 
-## 🚀 What This Project Includes
+## 🌐 Live Demo
 
-- ✅ Flask-powered web interface
-- ✅ Amadeus API integration for real-time flight data
-- ✅ Demo mode fallback (no API key needed)
-- ✅ Logs user searches to a local SQLite database
-- ✅ `/history` page to view all previous searches
-- ✅ Email alerts when a real flight deal is found
-- ✅ Clean and centered UI with custom styling
-- ✅ `.env` and `.gitignore` best practices
-- ✅ Push-ready for GitHub with clear commits and structure
+🔗 [Try the Live Web App](https://flight-deal-finder-web.onrender.com)
+
+No sign-in required — just search for flights, view results, and browse the search history.
 
 ---
 
-## 🧠 From Script to Web App: How I Improved It
+## ✅ Features
 
-This project began as a simple Python script that pulled flight data using the Amadeus API and printed results to the console. Here’s how I transformed it into a full web application:
+- Flask-powered web interface
+- Amadeus API integration for real-time flight data
+- DEMO mode for showcasing without API keys
+- SQLite-backed search history with persistent logs
+- `/history` route with styled table of all past searches
+- Email alerts when real flight deals are found (if DEMO mode off)
+- Clean and centered UI with custom CSS
+- `.env` + `.gitignore` for best practices
+- Deployable on Render
+
+---
+
+## 🔄 From Script to Web App
 
 | Feature       | Original Script         | Web App Upgrade                             |
 |---------------|--------------------------|---------------------------------------------|
 | Input         | Hardcoded                | Web form with user input                    |
-| Output        | Printed to console       | Beautifully styled results in browser       |
-| Storage       | None                     | SQLite database logs all searches           |
-| Navigation    | None                     | `/` for search, `/history` for search logs  |
-| Access        | Local CLI only           | Browser-accessible, deployable              |
-| Demo Mode     | No                       | ✅ Yes — no keys needed                      |
-| Email Alerts  | No                       | ✅ Sends email when deal is found           |
-| Styling       | None                     | Custom CSS with layout polish               |
+| Output        | Printed to console       | Styled results rendered in-browser          |
+| Storage       | None                     | SQLite database logging all searches        |
+| Navigation    | None                     | `/` (home) and `/history` (logs)            |
+| Access        | Local only               | Accessible online via browser               |
+| Demo Mode     | ❌ No                    | ✅ Yes – easy testing without API keys       |
+| Email Alerts  | ❌ No                    | ✅ Sends real emails for valid deals         |
+| Styling       | ❌ None                  | ✅ Fully custom layout + polish              |
+
+---
+
+## 🖼️ Screenshots
+
+
+- **Search Form:** `media/screenshots/search_form.png`
+- **Flight Result Page:** `media/screenshots/results.PNG`
+- **Search History Table:** `media/screenshots/history.PNG`
+- **Email Alert Example:** `media/screenshots/email_alert.PNG`
 
 ---
 
@@ -40,142 +56,121 @@ This project began as a simple Python script that pulled flight data using the A
 ```
 flight-deal-finder-web/
 │
-├── app.py                      # Flask entry point with all routes
-├── flight_search.py            # Logic for Amadeus API calls
-├── flight_data.py              # FlightData model
-├── search_log.py               # SQLite DB logic (init, log, fetch)
-├── notification_manager.py     # Sends email alerts for real deals
+├── run.py                     # Entry point using app factory
+├── requirements.txt
+├── .env.example               # Env template
+├── .gitignore
 │
-├── templates/
-│   ├── index.html              # Homepage with search form
-│   ├── results.html            # Shows a single search result
-│   └── history.html            # Table of all past user searches
-│
-├── static/
-│   └── style.css               # Custom CSS for UI styling
-│
-├── .env.example                # Template for env variables
-├── requirements.txt            # All dependencies
-├── .gitignore                  # Files to exclude from Git
-└── README.md                   # You’re looking at it
+├── app/
+│   ├── __init__.py            # App factory setup
+│   ├── routes.py              # Flask routes
+│   ├── flight_search.py       # Amadeus API integration
+│   ├── flight_data.py         # FlightData model
+│   ├── search_log.py          # SQLite interaction
+│   ├── notification_manager.py# Email sending logic
+│   ├── templates/
+│   │   ├── index.html
+│   │   ├── results.html
+│   │   └── history.html
+│   └── static/
+│       └── style.css
 ```
 
 ---
 
-## ⚙️ How to Run It Locally
-
-### 1. Clone the Repo
+## ⚙️ How to Run Locally
 
 ```bash
-git clone https://github.com/your-username/flight-deal-finder-web.git
+git clone https://github.com/Cyber-Security-Tech/flight-deal-finder-web.git
 cd flight-deal-finder-web
-```
 
-### 2. Create a Virtual Environment
-
-```bash
 python -m venv venv
-venv\Scripts\activate  # Windows
-```
+source venv/bin/activate  # or venv\Scripts\activate on Windows
 
-### 3. Install Dependencies
-
-```bash
 pip install -r requirements.txt
 ```
 
-### 4. Add Your `.env`
+Create a `.env` file based on `.env.example`:
 
-Use `.env.example` to create your `.env` file:
-
-```env
-AMADEUS_CLIENT_ID=your_key_here
-AMADEUS_CLIENT_SECRET=your_secret_here
+```
+AMADEUS_CLIENT_ID=your_key
+AMADEUS_CLIENT_SECRET=your_secret
 MY_EMAIL=your_email@gmail.com
 MY_EMAIL_PASSWORD=your_gmail_app_password
 ```
 
-Set `DEMO_MODE = True` in `app.py` to test without an API key or email alerts.
-
-### 5. Run the App
+Then run it:
 
 ```bash
-python app.py
+python run.py
 ```
 
 Visit [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ---
 
-## 🧪 Demo Mode Fallback
+## 🧪 Demo Mode
 
-If you don’t have API keys, just leave the `.env` empty and make sure:
+Don’t have API credentials? No problem. The app supports a fallback demo mode.
+
+In `routes.py`, make sure:
 
 ```python
 DEMO_MODE = True
 ```
 
-Your browser will still show a fake but realistic flight result like this:
-
-```
-From: IAD (IAD)
-To: CDG (CDG)
-Price: $199
-Departure: 2025-06-01
-Return: 2025-06-08
-```
+You’ll get a mock flight deal without needing an API key or SMTP setup.
 
 ---
 
 ## 📜 Search History
 
-All searches (origin, destination, max price, timestamp) are logged in a local SQLite database and viewable at:
+Each user search (origin, destination, max price, timestamp) is automatically saved to a local `SQLite` database. View it at:
 
 ```
 /history
 ```
 
-The table is centered, styled, and updated with every new submission.
-
 ---
 
 ## 📧 Email Alerts
 
-If `DEMO_MODE = False` and a real flight deal is found, an email will automatically be sent with flight details including:
+When DEMO mode is off, real flight results will trigger an automated email with:
 
-- Origin and destination
-- Price
-- Departure and return dates
+- Departure + arrival cities and airport codes
+- Price, dates, and round-trip details
 
-This is powered by Gmail SMTP and app passwords via the `.env` file.
-
----
-
-## 🧠 What I Learned
-
-- Flask routing, templates, and server-side rendering
-- How to persist data with SQLite and `sqlite3`
-- Real-world API usage and fallback design patterns
-- Sending emails via SMTP in Flask
-- Clean architecture, file structure, and GitHub commits
-- Frontend/backend coordination + UI/UX polish
+This is sent using `smtplib` and Gmail App Passwords securely from your `.env`.
 
 ---
 
-## 🔒 Tech Used
+## 💡 What I Learned
+
+- Flask routing, Jinja templating, and app factory pattern
+- Safe and secure `.env` usage for API + email credentials
+- Integrating Amadeus API into a production-ready workflow
+- Logging + querying with `sqlite3`
+- Styling frontends and writing clean backend logic
+- How to deploy and debug Flask apps on Render
+
+---
+
+## 🔒 Tech Stack
 
 - Python 3
 - Flask
-- SQLite3
-- Amadeus Flight API
-- HTML/CSS (Jinja templates)
-- `dotenv` for secret management
-- `smtplib` for email automation
+- SQLite
+- HTML/CSS + Jinja Templates
+- Amadeus Flight Offers API
+- Gmail SMTP (smtplib)
+- dotenv
 
 ---
 
-## 💬 Next Steps (Optional)
+## 🚧 Future Improvements
 
-- Scheduled background job (daily check)
-- Deployment to Render
-- User authentication for saved alerts
+- Deploy to custom domain with HTTPS
+- User accounts and authentication
+- Export search history to CSV
+- Email multiple recipients or a test-mode inbox
+- Daily scheduled scans for saved routes
