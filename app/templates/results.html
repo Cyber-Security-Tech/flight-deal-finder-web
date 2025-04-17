@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Flight Search Result</h1>
+
+        {% if flight %}
+            <div class="flight-details">
+                <p><strong>From:</strong> {{ flight.origin_city }} ({{ flight.origin_airport }})</p>
+                <p><strong>To:</strong> {{ flight.destination_city }} ({{ flight.destination_airport }})</p>
+                <p><strong>Price:</strong> ${{ flight.price }}</p>
+                <p><strong>Departure:</strong> {{ flight.departure_date }}</p>
+                <p><strong>Return:</strong> {{ flight.return_date }}</p>
+            </div>
+        {% else %}
+            <p>No flights were found under your specified price limit. Please try a different search.</p>
+        {% endif %}
+
+        <div class="navigation-link">
+            <a href="{{ url_for('main.home') }}">Back to Search</a>
+        </div>
+    </main>
+</body>
+</html>

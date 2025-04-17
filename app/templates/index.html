@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Deal Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Flight Deal Finder</h1>
+
+        <form method="POST" class="search-form">
+            <div class="form-group">
+                <label for="origin">From (IATA Code):</label>
+                <input type="text" id="origin" name="origin" required>
+            </div>
+
+            <div class="form-group">
+                <label for="destination">To (IATA Code):</label>
+                <input type="text" id="destination" name="destination" required>
+            </div>
+
+            <div class="form-group">
+                <label for="max_price">Max Price (USD):</label>
+                <input type="number" id="max_price" name="max_price" min="1" required>
+            </div>
+
+            <button type="submit">Find Deals</button>
+        </form>
+
+        <div class="history-link">
+            <a href="{{ url_for('main.history') }}">View Search History</a>
+        </div>
+    </main>
+</body>
+</html>

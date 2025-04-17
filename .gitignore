@@ -1,9 +1,13 @@
 # Environment variables
 .env
 
-# Python cache
+# Python bytecode
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Flask instance folder (contains local DB, configs)
+instance/
 
 # VS Code settings (optional)
 .vscode/
@@ -11,5 +15,8 @@ __pycache__/
 # Mac system files
 .DS_Store
 
-# Flask instance folder (if used later)
-instance/
+# SQLite DB file (if generated outside instance/)
+*.db
+
+# Logs (optional)
+*.log

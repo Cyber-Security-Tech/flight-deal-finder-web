@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Search History</h1>
+
+        {% if searches %}
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Max Price (USD)</th>
+                        <th>Date Searched</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in searches %}
+                    <tr>
+                        <td>{{ s[0] }}</td>
+                        <td>{{ s[1] }}</td>
+                        <td>${{ s[2] }}</td>
+                        <td>{{ s[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No search history found.</p>
+        {% endif %}
+
+        <div class="navigation-link">
+            <a href="{{ url_for('main.home') }}">Back to Search</a>
+        </div>
+    </main>
+</body>
+</html>
